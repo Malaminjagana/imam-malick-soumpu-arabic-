@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>الأسئلة الشائعة – معهد الإمام مالك الإسلامي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            line-height: 1.8;
+            padding: 0 20px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .faq-item:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>الأسئلة الشائعة</h1>
+
+    <div class="faq-item">
+        <h3 class="faq-question">ما هي البرامج التي يقدمها المعهد؟</h3>
+        <p class="faq-answer">
+            يقدم معهد الإمام مالك برامج في تحفيظ القرآن الكريم، والدراسات الإسلامية، واللغة العربية،
+            بالإضافة إلى برامج دعم أكاديمي للطلاب.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3 class="faq-question">أين يقع المعهد؟</h3>
+        <p class="faq-answer">
+            يقع معهد الإمام مالك في غامبيا، ويخدم طلابًا من مناطق مختلفة داخل البلاد.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3 class="faq-question">كيف يمكن التسجيل في المعهد؟</h3>
+        <p class="faq-answer">
+            يتم التسجيل من خلال مكتب القبول في المعهد، ويمكنكم التواصل معنا أو زيارة المعهد مباشرة
+            للحصول على مزيد من التفاصيل.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3 class="faq-question">هل يقدم المعهد برنامج تحفيظ القرآن؟</h3>
+        <p class="faq-answer">
+            نعم، يعد برنامج تحفيظ القرآن الكريم من أهم برامج المعهد، ويُدرَّس فيه القرآن على أيدي
+            معلمين مؤهلين.
+        </p>
+    </div>
+
+    <div class="faq-item">
+        <h3 class="faq-question">هل المعهد متاح لمختلف الأعمار؟</h3>
+        <p class="faq-answer">
+            نعم، يستقبل المعهد طلابًا من أعمار مختلفة بحسب نوع البرنامج الدراسي.
+        </p>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
