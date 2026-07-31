@@ -85,6 +85,149 @@ content="&#x645;&#x646;&#x627;&#x631;&#x629; &#x625;&#x633;&#x644;&#x627;&#x645;
         .nds-avatar:not([hidden]) img {
             aspect-ratio: 1;
         }
+
+        .donate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0 1.5rem;
+            padding: 0.9rem 1.35rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #0f766e 0%, #16a34a 100%);
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 12px 30px rgba(15, 118, 110, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .donate-btn:hover,
+        .donate-btn:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 36px rgba(15, 118, 110, 0.28);
+            color: #ffffff;
+        }
+
+        body.donate-modal-open {
+            overflow: hidden;
+        }
+
+        .donate-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(6, 12, 24, 0.72);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .donate-modal-backdrop.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .donate-modal {
+            width: min(100%, 760px);
+            max-height: calc(100vh - 2rem);
+            overflow: auto;
+            border-radius: 24px;
+            background: #ffffff;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+            padding: 1.5rem;
+            transform: translateY(12px) scale(0.98);
+            transition: transform 0.25s ease;
+        }
+
+        .donate-modal-backdrop.is-open .donate-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .donate-modal__header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .donate-modal__title {
+            margin: 0 0 0.35rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .donate-modal__description {
+            margin: 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .donate-modal__close {
+            border: 0;
+            border-radius: 999px;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: #0f172a;
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .donate-option-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .donate-option-card {
+            display: block;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            background: #f8fafc;
+            color: #0f172a;
+            text-decoration: none;
+            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .donate-option-card:hover,
+        .donate-option-card:focus-visible {
+            transform: translateY(-2px);
+            border-color: #16a34a;
+            box-shadow: 0 10px 24px rgba(15, 118, 110, 0.12);
+        }
+
+        .donate-option-card strong {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+        }
+
+        .donate-option-card span {
+            display: block;
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+            .donate-option-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .donate-modal {
+                padding: 1rem;
+            }
+        }
     </style>
 
     <!-- Theme/brand stamp (FOUC guard) — placed last so resource preloads kick off first. -->
@@ -1189,7 +1332,41 @@ content="&#x645;&#x646;&#x627;&#x631;&#x629; &#x625;&#x633;&#x644;&#x627;&#x645;
                         </p>
                     </div>
                      <!-- Donate Button YOUR_FLUTTERWAVE_LINK -->
-                     <a href="#" class="donate-btn">تبرع الآن</a>
+                     <a href="#" class="donate-btn" data-donate-open aria-haspopup="dialog" aria-controls="donationModal">تبرع الآن</a>
+
+                     <div class="donate-modal-backdrop" id="donationModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="donationModalTitle">
+                         <div class="donate-modal">
+                             <div class="donate-modal__header">
+                                 <div>
+                                     <h3 class="donate-modal__title" id="donationModalTitle">اختر طريقة التبرع</h3>
+                                     <p class="donate-modal__description">اختر الطريقة الأنسب لك وسنوجهك إلى الرابط المناسب في لحظة.</p>
+                                 </div>
+                                 <button type="button" class="donate-modal__close" aria-label="إغلاق" data-donate-close>×</button>
+                             </div>
+                             <div class="donate-option-grid">
+                                 <a class="donate-option-card" href="https://example.com/wave" target="_blank" rel="noopener noreferrer">
+                                     <strong>تبرع عبر ويف</strong>
+                                     <span>للمتبرعين من غامبيا</span>
+                                     <span>الرقم:#</span>
+                                 </a>
+                                 <a class="donate-option-card" href="https://example.com/paypal" target="_blank" rel="noopener noreferrer">
+                                     <strong>تبرع عبر باي بال</strong>
+                                     <span>للمتبرعين الدوليين</span>
+                                     <span>قبول باي بال وفيزا وماستركارد</span>
+                                 </a>
+                                 <a class="donate-option-card" href="https://example.com/stripe" target="_blank" rel="noopener noreferrer">
+                                     <strong>تبرع عبر البطاقة البنكية</strong>
+                                     <span>للدفع بالبطاقات الائتمانية والخصم المباشر</span>
+                                     <span>فيزا، ماستركارد، Apple Pay، Google Pay</span>
+                                 </a>
+                                 <a class="donate-option-card" href="https://example.com/remitly" target="_blank" rel="noopener noreferrer">
+                                     <strong>تبرع عبر ريمتلي</strong>
+                                     <span>للغامبيين المقيمين خارج البلاد</span>
+                                     <span>الإرسال مباشرة إلى رقم Wave</span>
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
 
                     <div class="accredited nds-section-action">
                         <div class="nds-grid">
@@ -3858,6 +4035,50 @@ So tracking only runs if user accepted.
 
 
     
+    </script>
+    <script>
+    (function() {
+        var trigger = document.querySelector('[data-donate-open]');
+        var modal = document.getElementById('donationModal');
+
+        if (!trigger || !modal) return;
+
+        function openModal() {
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('donate-modal-open');
+        }
+
+        function closeModal() {
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('donate-modal-open');
+        }
+
+        trigger.addEventListener('click', function(event) {
+            event.preventDefault();
+            openModal();
+        });
+
+        modal.querySelectorAll('[data-donate-close]').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                closeModal();
+            });
+        });
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+                closeModal();
+            }
+        });
+    })();
     </script>
     <link rel="preload" href="https://cdn.iu.edu.sa/NDS-iu/v107/assets/uhud/uhud.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.iu.edu.sa/NDS-iu/v107/assets/uhud/uhud.css"></noscript>
